@@ -1,5 +1,6 @@
 # DATA MINING THE CITY
 # WEEK-1 ASSIGNMENT
+#LINDSAY FRIEDMAN 
 
 # This iassingment will get you familiar with the basic elements of Python by programming a simple card game.
 # We will create a custom class to represent each player in the game, which will store information about their
@@ -31,16 +32,21 @@ class Player:
     
     # create here two local variables to store a unique ID for each player and the player's current 'pot' of money
     # [FILL IN YOUR VARIABLES HERE]
-    
-    # in the __init__() function, use the two input variables to initialize the ID and starting pot of each player
+    playerid = 1
+    playerpot = 5
+      # in the __init__() function, use the two input variables to initialize the ID and starting pot of each player
     
     def __init__(self, inputID, startingPot):
-        # [CREATE YOUR INITIALIZATIONS HERE]
+        self.playerid = inputID
+        self.playerpot = startingPot
+
         
     # create a function for playing the game. This function should take on input for the card of the dealer.
     # it should then take a random card from 
     
     def play(self, dealerCard):
+        playerCard = random.choice(cards)
+
         # [CREATE CODE FOR SELECTING A RANDOM CARD]
         
         # here we should have a conditional that tests the player's card value against the dealer card
@@ -50,26 +56,35 @@ class Player:
         
         if playerCard < dealerCard:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
+            self.playerpot += 100
+            print "Player", self.playerid, "win",playerCard, "vs.", dealerCard
         else:
             # [INCREMENT THE PLAYER'S POT, AND RETURN A MESSAGE]
+            self.playerpot -= 100 
+            print "Player", self.playerid, "lose",playerCard, "vs.", dealerCard
+        
         
     # create an accessor function to return the current value of the player's pot
     def returnPot(self):
         # [FILL IN THE RETURN STATEMENT]
-        
+        return self.playerpot 
     # create an accessor function to return the player's ID
     def returnID(self):
         # [FILL IN THE RETURN STATEMENT]
+        return self.playerid
 
 
 # Next we will create some functions outside the class definition which will control the flow of the game
-# The first function will play one round. It will take as an input the collection of players, and iterate through each one,
+# The first function will play one round. It will take as an input the collection of players, and iterate through 
+# each one,
 # calling each player's '.play() function
 
 def playHand(players):
     
     for player in players:
         dealerCard = random.choice(cards)
+        player.play(dealerCard)
+
         #[EXECUTE THE PLAY() FUNCTION FOR EACH PLAYER USING THE DEALER CARD, AND PRINT OUT THE RESULTS]
         
 # Next we will define a function that will check the balances of each player, and print out a message with the
@@ -78,9 +93,7 @@ def playHand(players):
 def checkBalances(players):
     
     for player in players:
-        #[PRINT OUT EACH PLAYER'S BALANCE BY USING EACH PLAYER'S ACCESSOR FUNCTIONS]
-  
-  
+        print "Player", player.returnID(), "has", player.returnPot(), "left" #[PRINT OUT EACH PLAYER'S BALANCE BY USING EACH PLAYER'S ACCESSOR FUNCTIONS]
 # Now we are ready to start the game. First we create an empy list to store the collection of players in the game
 
 players = []      
